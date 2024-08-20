@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,5 +16,15 @@ namespace EF_Core.Entities
         public string Address { get; set; }
         public double HourRate { get; set; }
         public int Dep_ID { get; set; }
+
+        [ForeignKey("Dept_ID")]
+        [InverseProperty("Instructor")]
+        public Department Department { get; set; }
+
+        [InverseProperty("DepartmentManged")]
+        public Department DepartmentManager { get; set; }
+
+        [InverseProperty("Instructor")]
+        public ICollection<Course_Inst> Course_Insts { get; set; }= new HashSet<Course_Inst>();
     }
 }
